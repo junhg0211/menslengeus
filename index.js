@@ -73,4 +73,6 @@ function copy() {
 function action() {
     draw(input.value);
     copy();
+
+    input.value = input.value.substring(1);
 }
