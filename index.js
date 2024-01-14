@@ -69,9 +69,14 @@ function copy() {
     navigator.clipboard.writeText(copier.innerHTML);
 }
 
-function action() {
-    draw(input.value);
-    copy();
+function insert() {
+    while (input.value !== "") {
+        draw(input.value);
+        input.value = input.value.substring(1);
+    }
+}
 
-    input.value = input.value.substring(1);
+function empty() {
+    svg.innerHTML = '';
+    delta = 0;
 }
