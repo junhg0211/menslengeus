@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg id="a" data-name="레이어 1" xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
-  <rect x="0" y="0" width="512" height="512" rx="158.503" ry="158.503" fill="#8bc34a" stroke-width="0"/>
+  <rect x="0" y="0" width="512" height="512" rx="158.503" ry="158.503" stroke-width="0"/>
   <g>
     <polygon points="201.996 177.442 418.011 202.442 201.996 227.442 201.996 177.442 201.996 177.442" fill="#fff" stroke-width="0"/>
     <polygon points="310.004 285.449 418.011 310.449 310.004 335.449 310.004 285.449 310.004 285.449" fill="#fff" stroke-width="0"/>
