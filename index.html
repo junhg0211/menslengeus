@@ -3,15 +3,32 @@
 <head>
   <meta charset="utf-8">
   <link rel="icon" href="icon.svg">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
   <title>Menslengeus α1.3</title>
 </head>
 <body>
-  <input id="input"></input>
-  <button onclick="insert()">입력</button>
-  <button onclick="copy()">복사</button>
-  <button onclick="empty()">초기화</button>
-  <div id="copier">
-    <svg id="svg"></svg>
+  <div class="container">
+    <h1><strong>Menslengeus</strong></h1>
+    <div class="row mb-2">
+      <div class="col">
+        <textarea id="input" class="form-control"></textarea>
+      </div>
+    </div>
+    <div class="row mb-2">
+      <div class="col">
+        <p>
+          <button class="btn btn-primary" onclick="insert()">입력</button>
+          <button class="btn btn-secondary" onclick="copy()">복사</button>
+          <button class="btn btn-danger" onclick="empty()">초기화</button>
+        </p>
+      </div>
+    </div>
+    <div class="row mb-2" id="copier">
+      <div class="col">
+        <svg id="svg"></svg>
+      </div>
+    </div>
   </div>
 
   <script src="index.js"></script>
