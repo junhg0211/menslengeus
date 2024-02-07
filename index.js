@@ -1,7 +1,3 @@
-const svg = document.querySelector('#svg');
-const copier = document.querySelector('#copier');
-const input = document.querySelector('#input');
-
 const size = 4;
 const padding = 2;
 let delta = 0;
