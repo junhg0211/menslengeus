@@ -110,7 +110,7 @@ function render() {
 setInterval(() => {
     tick();
     render();
-}, 1000 / 30);
+});
 
 menslengeusArea.width = 250 * window.devicePixelRatio;
 menslengeusArea.height = 250 * window.devicePixelRatio;
