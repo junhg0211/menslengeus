@@ -2,37 +2,21 @@ const size = 4;
 const padding = 2;
 let delta = 0;
 
-function drawPart(id, x, y) {
+function drawPart(edges, id, x, y) {
     if (id & 0b1000) {
-        let path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-        path.setAttribute('d', `M${size*x + delta},${size*y}l${size},0`);
-        path.setAttribute('fill', 'none');
-        path.setAttribute('stroke', '#000');
-        svg.appendChild(path);
+        edges.push([size*x + delta, size*y, size, 0]);
     }
 
     if (id & 0b0100) {
-        let path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-        path.setAttribute('d', `M${size*(x+1) + delta},${size*y}l0,${size}`);
-        path.setAttribute('fill', 'none');
-        path.setAttribute('stroke', '#000');
-        svg.appendChild(path);
+        edges.push([size*(x+1) + delta, size*y, 0, size]);
     }
 
     if (id & 0b0010) {
-        let path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-        path.setAttribute('d', `M${size*x + delta},${size*y}l0,${size}`);
-        path.setAttribute('fill', 'none');
-        path.setAttribute('stroke', '#000');
-        svg.appendChild(path);
+        edges.push([size*x + delta, size*y, 0, size]);
     }
 
     if (id & 0b0001) {
-        let path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-        path.setAttribute('d', `M${size*x + delta},${size*(y+1)}l${size},0`);
-        path.setAttribute('fill', 'none');
-        path.setAttribute('stroke', '#000');
-        svg.appendChild(path);
+        edges.push([size*x + delta, size*(y+1), size, 0]);
     }
 }
 
@@ -41,6 +25,7 @@ function draw(letter) {
 
     let path;
 
+    // -- x
     path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
     path.setAttribute('d', `M${size + delta},${size}l${size},${size}`);
     path.setAttribute('fill', 'none');
@@ -53,10 +38,64 @@ function draw(letter) {
     path.setAttribute('stroke', '#000');
     svg.appendChild(path);
 
-    part = drawPart((charCode >> 12) & 0xff, 1, 0);
-    part = drawPart((charCode >> 8) & 0xff, 2, 1);
-    part = drawPart((charCode >> 4) & 0xff, 0, 1);
-    part = drawPart((charCode >> 0) & 0xff, 1, 2);
+    // -- lines
+    let edges = [];
+
+    drawPart(edges, (charCode >> 12) & 0xff, 1, 0);
+    drawPart(edges, (charCode >> 8) & 0xff, 2, 1);
+    drawPart(edges, (charCode >> 4) & 0xff, 0, 1);
+    drawPart(edges, (charCode >> 0) & 0xff, 1, 2);
+
+    // join connected lines
+    while (true) {
+        let changed = false;
+        for (let i = 0; i < edges.length; i++) {
+            let x1 = edges[i][0];
+            let y1 = edges[i][1];
+            let x2 = x1 + edges[i][2];
+            let y2 = y1 + edges[i][3];
+            let direction1 = Math.atan2(y2-y1, x2-x1);
+
+            for (let j = 0; j < edges.length; j++) {
+                if (i == j) {
+                    continue;
+                }
+
+                let x3 = edges[j][0];
+                let y3 = edges[j][1];
+                let x4 = x3 + edges[j][2];
+                let y4 = y3 + edges[j][3];
+                let direction2 = Math.atan2(y4-y3, x4-x3);
+
+                let distance = Math.hypot(x2-x3, y2-y3);
+                let direction_delta = direction2 - direction1;
+
+                if (distance < 1 && Math.abs(direction_delta) < 1) {
+                    edges.splice(j, 1);
+                    edges.splice(i, 1);
+                    edges.push([x1, y1, x4-x1, y4-y1]);
+                    changed = true;
+                }
+            }
+        }
+
+        if (!changed) {
+            break;
+        }
+    }
+
+    for (let i = 0; i < edges.length; i++) {
+        let x1 = edges[i][0];
+        let y1 = edges[i][1];
+        let x2 = edges[i][2];
+        let y2 = edges[i][3];
+
+        let path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        path.setAttribute('d', `M${x1},${y1}l${x2},${y2}`);
+        path.setAttribute('fill', 'none');
+        path.setAttribute('stroke', '#000');
+        svg.appendChild(path);
+    }
 
     delta += size * 3 + padding;
 }
