@@ -23,20 +23,34 @@
           <button class="btn btn-danger" onclick="empty()">초기화</button>
         </p>
       </div>
-    </div>
-    <div class="row mb-2">
       <div class="col" id="copier">
         <svg id="svg"></svg>
       </div>
+      <div class="col">
+        <canvas id="menslengeus-area" style="max-width: 250px; padding: 0; margin: 0 12px;"></canvas>
+        <button class="btn btn-primary" onclick="insertMenslengeus()">입력</button>
+      </div>
     </div>
     <div class="row mb-2">
-      <canvas id="menslengeus-area" style="max-width: 250px; padding: 0; margin: 0 12px;"></canvas>
-      <button class="btn btn-primary" onclick="insertMenslengeus()">입력</button>
+      <h3>진수 변환기</h3>
+      <div class="mb-3">
+        <label for="input-10" class="form-label">10진수</label>
+        <div class="input-group">
+          <input type="text" class="form-control" id="input-10" placeholder="1234567890">
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="input-12" class="form-label">12진수</label>
+        <div class="input-group">
+          <input type="text" class="form-control" id="input-12" placeholder="123456789XE0">
+        </div>
+      </div>
     </div>
   </div>
 
   <script src="elements.js"></script>
   <script src="index.js"></script>
   <script src="menslengeus-input.js"></script>
+  <script src="number-converter.js"></script>
 </body>
 </html>
