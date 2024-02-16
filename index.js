@@ -70,9 +70,14 @@ function draw(letter) {
                 let distance = Math.hypot(x2-x3, y2-y3);
                 let direction_delta = direction2 - direction1;
 
-                if (distance < 1 && Math.abs(direction_delta) < 1) {
-                    edges.splice(j, 1);
-                    edges.splice(i, 1);
+                if (distance < 0.1 && Math.abs(direction_delta) < 0.1) {
+                    if (j > i) {
+                        edges.splice(j, 1);
+                        edges.splice(i, 1);
+                    } else {
+                        edges.splice(i, 1);
+                        edges.splice(j, 1);
+                    }
                     edges.push([x1, y1, x4-x1, y4-y1]);
                     changed = true;
                 }
