@@ -247,6 +247,7 @@ function draw(letter) {
         }
     }
 
+    let g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
     for (let i = 0; i < edges.length; i++) {
         let x1 = edges[i][0];
         let y1 = edges[i][1];
@@ -257,8 +258,9 @@ function draw(letter) {
         path.setAttribute('d', `M${x1},${y1}l${x2},${y2}`);
         path.setAttribute('fill', 'none');
         path.setAttribute('stroke', '#000');
-        svg.appendChild(path);
+        g.appendChild(path);
     }
+    svg.appendChild(g);
 
     delta += offset;
 }
